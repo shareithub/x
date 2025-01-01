@@ -81,7 +81,7 @@ show() {
 
 check_docker_installed() {
     if command -v docker >/dev/null 2>&1; then
-        show "Docker is already installed. Edited by share it hub"
+        show "Docker is already installed. Edited by share it hub new"
         return 0
     else
         return 1
