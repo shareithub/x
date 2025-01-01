@@ -31,7 +31,7 @@ echo -e "
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "
 
-CONTAINER_NAME="volara_miner_tes"
+CONTAINER_NAME="volara_miner_tesss"
 
 # Function to check if the container exists
 container_exists() {
