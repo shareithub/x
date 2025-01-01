@@ -19,7 +19,7 @@ from miner.encrypt import encrypt_buffer
 
 logger = logging.getLogger(__name__)
 
-HASHTAG = "#example"  # Gantilah dengan hashtag yang diinginkan
+HASHTAG = "#crypto"  # Gantilah dengan hashtag yang diinginkan
 
 async def start_mining():
     logger.info("Starting mining...")
