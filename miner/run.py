@@ -19,6 +19,7 @@ from miner.encrypt import encrypt_buffer
 
 logger = logging.getLogger(__name__)
 
+HASHTAG = "#example"  # Gantilah dengan hashtag yang diinginkan
 
 async def start_mining():
     logger.info("Starting mining...")
@@ -53,20 +54,20 @@ async def start_mining():
 async def mining_loop(account: Account) -> asyncio.Task[None]:
     tweets: set[TweetData] = set()
     while len(tweets) < TARGET_TWEET_COUNT:
-        logger.info("Pulling tweets...")
+        logger.info("Pulling tweets by hashtag...")
         try:
-            timeline = account.home_timeline(limit=TARGET_TWEET_COUNT)
+            # Mengambil tweet berdasarkan hashtag yang diinginkan
+            timeline = account.search_tweets(query=HASHTAG, count=TARGET_TWEET_COUNT)
         except Exception:
-            logger.exception("Error pulling timeline")
-            logger.info(f"Sleeping {ERROR_SLEEP_INTERVAL}s for timeline refresh...")
+            logger.exception("Error pulling tweets by hashtag")
+            logger.info(f"Sleeping {ERROR_SLEEP_INTERVAL}s for retry...")
             await asyncio.sleep(ERROR_SLEEP_INTERVAL)
             continue
         try:
             new_tweets = extract_tweets(timeline)
         except Exception:
             logger.exception("Error extracting the fetched tweets...")
-            logger.info(timeline)
-            logger.info(f"Sleeping {ERROR_SLEEP_INTERVAL}s for timeline refresh...")
+            logger.info(f"Sleeping {ERROR_SLEEP_INTERVAL}s for retry...")
             await asyncio.sleep(ERROR_SLEEP_INTERVAL)
             continue
         tweets.update(new_tweets)
